@@ -1,0 +1,27 @@
+{
+  "name": "node-rest-template",
+  "version": "0.0.1",
+  "description": "Template for a Node.js based REST API",
+  "main": "index.js",
+  "scripts": {
+    "start-dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "mocha test/test.spec.js --exit"
+  },
+  "keywords": [
+    "Node",
+    "REST",
+    "API",
+    "Template"
+  ],
+  "author": "C. Mayer (meggsimum)",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "mocha": "^8.0.1",
+    "nodemon": "^2.0.4",
+    "supertest": "^4.0.2"
+  }
+}
