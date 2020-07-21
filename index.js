@@ -3,16 +3,16 @@ const express = require('express');
 const port = process.env.NODE_API_PORT || 8888;
 const app = express();
 
-app.use (function(req, res, next) {
-  var data='';
+app.use(function (req, res, next) {
+  var data = '';
   req.setEncoding('utf8');
-  req.on('data', function(chunk) {
-     data += chunk;
+  req.on('data', function (chunk) {
+    data += chunk;
   });
 
-  req.on('end', function() {
-      req.body = data;
-      next();
+  req.on('end', function () {
+    req.body = data;
+    next();
   });
 });
 
@@ -22,6 +22,8 @@ const verbose = true;
 app.get('/coordinates', (req, res) => {
   const lat = req.query.lat;
   const lon = req.query.lon;
+
+  verboseLogging('LAT=', lat, 'LON=', lon);
 
   var returnJson = {
     lon: lon,
@@ -37,7 +39,7 @@ app.route('/book')
     res.status(500).send({ error: 'something blew up' });
   })
   .post(function (req, res) {
-    requestBody = req.body;
+    const requestBody = req.body;
     // forward JSON
     var reqContentType = req.headers['content-type'];
     if (reqContentType === 'application/json') {
@@ -45,14 +47,13 @@ app.route('/book')
     }
 
     res.status(201).send(requestBody);
-
   })
   .put(function (req, res) {
     res.send('Update a book');
   })
 
 module.exports = app.listen(port, () =>
-  console.log(`Example app listening on port ${port}!`),
+  console.log(`Example app listening on port ${port}!`)
 );
 
 /**
@@ -60,7 +61,7 @@ module.exports = app.listen(port, () =>
  *
  * @param {*} msg
  */
-function verboseLogging(msg) {
+function verboseLogging (msg) {
   if (verbose) {
     console.log.apply(console, arguments);
   }

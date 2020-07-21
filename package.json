@@ -4,9 +4,10 @@
   "description": "Template for a Node.js based REST API",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint index.js",
     "start-dev": "nodemon index.js",
     "start": "node index.js",
-    "test": "mocha test/test.spec.js --exit"
+    "test": "npm run lint && mocha test/test.spec.js --exit"
   },
   "keywords": [
     "Node",
@@ -20,6 +21,12 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "eslint": "^7.5.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "mocha": "^8.0.1",
     "nodemon": "^2.0.4",
     "supertest": "^4.0.2"
