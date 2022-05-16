@@ -4,7 +4,7 @@ const port = process.env.NODE_API_PORT || 8888;
 const app = express();
 
 app.use(function (req, res, next) {
-  var data = '';
+  let data = '';
   req.setEncoding('utf8');
   req.on('data', function (chunk) {
     data += chunk;
@@ -25,7 +25,7 @@ app.get('/coordinates', (req, res) => {
 
   verboseLogging('LAT=', lat, 'LON=', lon);
 
-  var returnJson = {
+  const returnJson = {
     lon: lon,
     lat: lat
   };
@@ -41,7 +41,7 @@ app.route('/book')
   .post(function (req, res) {
     const requestBody = req.body;
     // forward JSON
-    var reqContentType = req.headers['content-type'];
+    const reqContentType = req.headers['content-type'];
     if (reqContentType === 'application/json') {
       res.setHeader('Content-Type', 'application/json');
     }
