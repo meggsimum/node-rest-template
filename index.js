@@ -1,7 +1,11 @@
 const express = require('express');
+const helmet = require('helmet');
 
 const port = process.env.NODE_API_PORT || 8888;
 const app = express();
+
+// applies basic security measures
+app.use(helmet());
 
 app.use(function (req, res, next) {
   var data = '';
