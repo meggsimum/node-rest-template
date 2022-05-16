@@ -26,8 +26,8 @@ app.get('/coordinates', (req, res) => {
   verboseLogging('LAT=', lat, 'LON=', lon);
 
   const returnJson = {
-    lon: lon,
-    lat: lat
+    lon,
+    lat
   };
 
   res.status(200).json(returnJson);
