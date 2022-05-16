@@ -1,20 +1,18 @@
 const express = require('express');
+var bodyParser = require('body-parser');
 
 const port = process.env.NODE_API_PORT || 8888;
 const app = express();
 
-app.use(function (req, res, next) {
-  var data = '';
-  req.setEncoding('utf8');
-  req.on('data', function (chunk) {
-    data += chunk;
-  });
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }))
 
-  req.on('end', function () {
-    req.body = data;
-    next();
-  });
-});
+// parse application/json
+app.use(
+  bodyParser.json(
+    { limit: '1kb' }
+  )
+);
 
 const verbose = true;
 
