@@ -1,9 +1,12 @@
 const express = require('express');
+const helmet = require('helmet');
 const pino = require('pino')
 
 const port = process.env.NODE_API_PORT || 8888;
 const app = express();
 
+// applies basic security measures
+app.use(helmet());
 const logger = pino({
   level: process.env.LOG_LEVEL || 'info',
   transport: {
