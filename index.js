@@ -1,10 +1,13 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const pino = require('pino')
 
 const port = process.env.NODE_API_PORT || 8888;
 const app = express();
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }))
 // applies basic security measures
 app.use(helmet());
 const logger = pino({
@@ -19,18 +22,12 @@ const logger = pino({
   }
 });
 
-app.use(function (req, res, next) {
-  let data = '';
-  req.setEncoding('utf8');
-  req.on('data', function (chunk) {
-    data += chunk;
-  });
-
-  req.on('end', function () {
-    req.body = data;
-    next();
-  });
-});
+// parse application/json
+app.use(
+  bodyParser.json(
+    { limit: '1kb' }
+  )
+);
 
 // without router
 app.get('/coordinates', (req, res) => {
