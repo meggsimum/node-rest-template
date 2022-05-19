@@ -20,7 +20,7 @@ const logger = pino({
 });
 
 app.use(function (req, res, next) {
-  var data = '';
+  let data = '';
   req.setEncoding('utf8');
   req.on('data', function (chunk) {
     data += chunk;
@@ -39,9 +39,9 @@ app.get('/coordinates', (req, res) => {
 
   logger.info(`LAT=${lat} LON=${lon}`);
 
-  var returnJson = {
-    lon: lon,
-    lat: lat
+  const returnJson = {
+    lon,
+    lat
   };
 
   res.status(200).json(returnJson);
@@ -55,7 +55,7 @@ app.route('/book')
   .post(function (req, res) {
     const requestBody = req.body;
     // forward JSON
-    var reqContentType = req.headers['content-type'];
+    const reqContentType = req.headers['content-type'];
     if (reqContentType === 'application/json') {
       res.setHeader('Content-Type', 'application/json');
     }
