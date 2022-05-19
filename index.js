@@ -1,5 +1,5 @@
 const express = require('express');
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const pino = require('pino')
 
