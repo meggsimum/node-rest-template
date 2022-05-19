@@ -1,7 +1,20 @@
 const express = require('express');
+const pino = require('pino')
 
 const port = process.env.NODE_API_PORT || 8888;
 const app = express();
+
+const logger = pino({
+  level: process.env.LOG_LEVEL || 'info',
+  transport: {
+    target: 'pino-pretty',
+    options: {
+      colorize: true,
+      translateTime: 'yyyy-mm-dd HH:MM:ssZ',
+      ignore: 'pid,hostname'
+    }
+  }
+});
 
 app.use(function (req, res, next) {
   var data = '';
@@ -16,14 +29,12 @@ app.use(function (req, res, next) {
   });
 });
 
-const verbose = true;
-
 // without router
 app.get('/coordinates', (req, res) => {
   const lat = req.query.lat;
   const lon = req.query.lon;
 
-  verboseLogging('LAT=', lat, 'LON=', lon);
+  logger.info(`LAT=${lat} LON=${lon}`);
 
   var returnJson = {
     lon: lon,
@@ -53,16 +64,5 @@ app.route('/book')
   })
 
 module.exports = app.listen(port, () =>
-  console.log(`Example app listening on port ${port}!`)
+  logger.info(`Example app listening on port ${port}!`)
 );
-
-/**
- * Logs the given message, when `verbose` flag is set to true.
- *
- * @param {*} msg
- */
-function verboseLogging (msg) {
-  if (verbose) {
-    console.log.apply(console, arguments);
-  }
-}
